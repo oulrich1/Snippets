@@ -1,0 +1,79 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#
+#       Oriah Ulrich
+#       A Few Root-Finding Iteration Methods
+#       Math 461
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+Main:::
+
+FUNCTION:       f = x |--> -3*2^(-x)*x^2 + x^3 + 3*4^(-x)*x - 8^(-x) 
+ERROR_BOUND:    e = 1e-6
+INTERVAL:       v = [-10, 5] 
+
+
+Ouput using different methods:
+
+
+BISECTION METHOD:
+Iteration:  1      p =  1.25000000000000       f(p) =  0.570861189423825
+Iteration:  2      p =  -0.625000000000000     f(p) =  -10.1789617901038
+Iteration:  3      p =  0.312500000000000      f(p) =  -0.119637441565175
+Iteration:  4      p =  0.781250000000000      f(p) =  0.00792673328549540
+Iteration:  5      p =  0.546875000000000      f(p) =  -0.00260677450565794
+Iteration:  6      p =  0.664062500000000      f(p) =  0.0000358189451395430
+Iteration:  7      p =  0.605468750000000      f(p) =  -0.000138903657715794
+Iteration:  8      p =  0.634765625000000      f(p) =  -7.99129805162391e-7
+
+Total Iterations=  8    Final P_8 =  0.634765625000000
+Time:  0.0273590087891 [s]
+END BISECTION METHOD
+
+
+NEWTONS METHOD:
+Iteration:  1   p =  -1.94748355641204     f(p) =  -195.566022194224
+Iteration:  2   p =  -1.42078041866122     f(p) =  -68.8243915530736
+Iteration:  3   p =  -0.942440011173104    f(p) =  -23.4972586717733
+Iteration:  4   p =  -0.533045276717767    f(p) =  -7.76269277398729
+Iteration:  5   p =  -0.203530395663928    f(p) =  -2.48805157767118
+Iteration:  6   p =  0.0476592017929324    f(p) =  -0.778296135238090
+Iteration:  7   p =  0.231192631241823     f(p) =  -0.239179733994855
+Iteration:  8   p =  0.361284339977738     f(p) =  -0.0726092601792349
+Iteration:  9   p =  0.451608281610717     f(p) =  -0.0218625006780074
+Iteration:  10  p =  0.513463434216324     f(p) =  -0.00654709743253540
+Iteration:  11  p =  0.555439334885725     f(p) =  -0.00195361622976314
+Iteration:  12  p =  0.583754563791835     f(p) =  -0.000581566508749576
+Iteration:  13  p =  0.602779376884827     f(p) =  -0.000172853136880369
+Iteration:  14  p =  0.615528567506802     f(p) =  -0.0000513218836237228
+Iteration:  15  p =  0.624057411261538     f(p) =  -0.0000152274537878472
+Iteration:  16  p =  0.629756382907145     f(p) =  -4.51598075024151e-6
+Iteration:  17  p =  0.633561513579753     f(p) =  -1.33888670583726e-6
+Iteration:  18  p =  0.636100853745340     f(p) =  -3.96868824081853e-7
+
+Total Iterations=  18    Final P_18 =  0.636100853745340
+Time:  0.0159289836884 [s]
+END NEWTONS METHOD
+
+
+ALTERNATIVE NEWTONS METHOD:
+Iteration:  1  p =  17.1051037389867       f(p) =  5004.68326315257
+Iteration:  2  p =  0.00108825326294948    f(p) =  -0.994483310279170
+Iteration:  3  p =  0.709247528259773      f(p) =  0.000929955896789403
+Iteration:  4  p =  0.641656300606516      f(p) =  3.13952419617181e-10
+
+Total Iterations:  4 . Final P_4 =  0.641656300606516
+Time:  0.0271859169006 [s]
+END ALTERNATIVE NEWTONS METHOD:
+
+Summary:
+--------
+On more accurate error bounds (smaller error), the time it takes
+for newtons method is longer and alternative newtons is shorter.
+
+However, on larger error bounds, the normal newtons method is faster
+and the alternative newtons method is slower. 
+
+Alternative newtons method requires less iterations overall.
+Bisection is slowest but guarentees convergence, i think.
+

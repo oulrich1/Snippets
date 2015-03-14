@@ -1,0 +1,483 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=None">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f8f8f8; }
+body .c { color: #408080; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #008000; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+body .cp { color: #BC7A00 } /* Comment.Preproc */
+body .c1 { color: #408080; font-style: italic } /* Comment.Single */
+body .cs { color: #408080; font-style: italic } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #008000 } /* Keyword.Pseudo */
+body .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #B00040 } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BA2121 } /* Literal.String */
+body .na { color: #7D9029 } /* Name.Attribute */
+body .nb { color: #008000 } /* Name.Builtin */
+body .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #0000FF } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #19177C } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sb { color: #BA2121 } /* Literal.String.Backtick */
+body .sc { color: #BA2121 } /* Literal.String.Char */
+body .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BA2121 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BA2121 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BA2121 } /* Literal.String.Single */
+body .ss { color: #19177C } /* Literal.String.Symbol */
+body .bp { color: #008000 } /* Name.Builtin.Pseudo */
+body .vc { color: #19177C } /* Name.Variable.Class */
+body .vg { color: #19177C } /* Name.Variable.Global */
+body .vi { color: #19177C } /* Name.Variable.Instance */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </style>
+</head>
+<body>
+<h2></h2>
+
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#       Oriah Ulrich</span>
+<span style="color: #408080; font-style: italic">#       A Few Root-Finding Iteration Methods</span>
+<span style="color: #408080; font-style: italic">#       Math 461</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+
+<span style="color: #408080; font-style: italic">Main:::</span>
+
+<span style="color: #408080; font-style: italic">FUNCTION:</span>       <span style="color: #408080; font-style: italic">f = x |--&gt; -3*2^(-x)*x^2 + x^3 + 3*4^(-x)*x - 8^(-x) </span>
+<span style="color: #408080; font-style: italic">ERROR_BOUND:</span>    <span style="color: #408080; font-style: italic">e = 1e-6</span>
+<span style="color: #408080; font-style: italic">INTERVAL:</span>       <span style="color: #408080; font-style: italic">v = [-10, 5] </span>
+
+
+<span style="color: #408080; font-style: italic">Ouput using different methods:</span>
+
+
+<span style="color: #408080; font-style: italic">BISECTION METHOD:</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">1</span>      <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">1.25000000000000</span>       <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">0.570861189423825</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">2</span>      <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">-0.625000000000000</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-10.1789617901038</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">3</span>      <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.312500000000000</span>      <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.119637441565175</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">4</span>      <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.781250000000000</span>      <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">0.00792673328549540</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">5</span>      <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.546875000000000</span>      <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.00260677450565794</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">6</span>      <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.664062500000000</span>      <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">0.0000358189451395430</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">7</span>      <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.605468750000000</span>      <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.000138903657715794</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">8</span>      <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.634765625000000</span>      <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-7.99129805162391e-7</span>
+
+<span style="color: #408080; font-style: italic">Total Iterations=</span>  <span style="color: #408080; font-style: italic">8</span>    <span style="color: #408080; font-style: italic">Final P_8 =</span>  <span style="color: #408080; font-style: italic">0.634765625000000</span>
+<span style="color: #408080; font-style: italic">Time:</span>  <span style="color: #408080; font-style: italic">0.0273590087891 [s]</span>
+<span style="color: #408080; font-style: italic">END BISECTION METHOD</span>
+
+
+<span style="color: #408080; font-style: italic">NEWTONS METHOD:</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">1</span>   <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">-1.94748355641204</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-195.566022194224</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">2</span>   <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">-1.42078041866122</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-68.8243915530736</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">3</span>   <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">-0.942440011173104</span>    <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-23.4972586717733</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">4</span>   <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">-0.533045276717767</span>    <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-7.76269277398729</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">5</span>   <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">-0.203530395663928</span>    <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-2.48805157767118</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">6</span>   <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.0476592017929324</span>    <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.778296135238090</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">7</span>   <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.231192631241823</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.239179733994855</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">8</span>   <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.361284339977738</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.0726092601792349</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">9</span>   <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.451608281610717</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.0218625006780074</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">10</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.513463434216324</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.00654709743253540</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">11</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.555439334885725</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.00195361622976314</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">12</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.583754563791835</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.000581566508749576</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">13</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.602779376884827</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.000172853136880369</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">14</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.615528567506802</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.0000513218836237228</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">15</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.624057411261538</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.0000152274537878472</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">16</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.629756382907145</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-4.51598075024151e-6</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">17</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.633561513579753</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-1.33888670583726e-6</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">18</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.636100853745340</span>     <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-3.96868824081853e-7</span>
+
+<span style="color: #408080; font-style: italic">Total Iterations=</span>  <span style="color: #408080; font-style: italic">18</span>    <span style="color: #408080; font-style: italic">Final P_18 =</span>  <span style="color: #408080; font-style: italic">0.636100853745340</span>
+<span style="color: #408080; font-style: italic">Time:</span>  <span style="color: #408080; font-style: italic">0.0159289836884 [s]</span>
+<span style="color: #408080; font-style: italic">END NEWTONS METHOD</span>
+
+
+<span style="color: #408080; font-style: italic">ALTERNATIVE NEWTONS METHOD:</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">1</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">17.1051037389867</span>       <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">5004.68326315257</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">2</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.00108825326294948</span>    <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">-0.994483310279170</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">3</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.709247528259773</span>      <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">0.000929955896789403</span>
+<span style="color: #408080; font-style: italic">Iteration:</span>  <span style="color: #408080; font-style: italic">4</span>  <span style="color: #408080; font-style: italic">p =</span>  <span style="color: #408080; font-style: italic">0.641656300606516</span>      <span style="color: #408080; font-style: italic">f(p) =</span>  <span style="color: #408080; font-style: italic">3.13952419617181e-10</span>
+
+<span style="color: #408080; font-style: italic">Total Iterations:</span>  <span style="color: #408080; font-style: italic">4 . Final P_4 =</span>  <span style="color: #408080; font-style: italic">0.641656300606516</span>
+<span style="color: #408080; font-style: italic">Time:</span>  <span style="color: #408080; font-style: italic">0.0271859169006 [s]</span>
+<span style="color: #408080; font-style: italic">END ALTERNATIVE NEWTONS METHOD:</span>
+
+<span style="color: #408080; font-style: italic">Summary:</span>
+<span style="color: #408080; font-style: italic">--------</span>
+<span style="color: #408080; font-style: italic">On more accurate error bounds (smaller error), the time it takes</span>
+<span style="color: #408080; font-style: italic">for newtons method is longer and alternative newtons is shorter.</span>
+
+<span style="color: #408080; font-style: italic">However, on larger error bounds, the normal newtons method is faster</span>
+<span style="color: #408080; font-style: italic">and the alternative newtons method is slower. </span>
+
+<span style="color: #408080; font-style: italic">Alternative newtons method requires less iterations overall.</span>
+<span style="color: #408080; font-style: italic">Bisection is slowest but guarentees convergence, i think.</span>
+</pre></div>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=None">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f8f8f8; }
+body .c { color: #408080; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #008000; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+body .cp { color: #BC7A00 } /* Comment.Preproc */
+body .c1 { color: #408080; font-style: italic } /* Comment.Single */
+body .cs { color: #408080; font-style: italic } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #008000 } /* Keyword.Pseudo */
+body .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #B00040 } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BA2121 } /* Literal.String */
+body .na { color: #7D9029 } /* Name.Attribute */
+body .nb { color: #008000 } /* Name.Builtin */
+body .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #0000FF } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #19177C } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sb { color: #BA2121 } /* Literal.String.Backtick */
+body .sc { color: #BA2121 } /* Literal.String.Char */
+body .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BA2121 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BA2121 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BA2121 } /* Literal.String.Single */
+body .ss { color: #19177C } /* Literal.String.Symbol */
+body .bp { color: #008000 } /* Name.Builtin.Pseudo */
+body .vc { color: #19177C } /* Name.Variable.Class */
+body .vg { color: #19177C } /* Name.Variable.Global */
+body .vi { color: #19177C } /* Name.Variable.Instance */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </style>
+</head>
+<body>
+<h2></h2>
+
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">sys</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">getopt</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">timeit</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">time</span>
+
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">sage.symbolic.integration.integral</span> <span style="color: #008000; font-weight: bold">import</span> indefinite_integral
+
+
+ACCEPTABLE_ERROR_CONST <span style="color: #666666">=</span> <span style="color: #666666">1e-20</span>
+
+<span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#     ITERATIVE METHODS FOR ROOT-FINDING</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#   bisection_method</span>
+<span style="color: #408080; font-style: italic">#   newtons_method</span>
+<span style="color: #408080; font-style: italic">#   alternative_newtons_method</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#   By:     Oriah Ulrich</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+
+
+<span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#   Bisection method essentially cuts the interval in</span>
+<span style="color: #408080; font-style: italic">#   half and runs on the new interval where it is ob-</span>
+<span style="color: #408080; font-style: italic">#   vious there is a root because of change in sign of</span>
+<span style="color: #408080; font-style: italic">#  &#39;f&#39;. The method halts when f is close enough to 0.. </span>
+<span style="color: #408080; font-style: italic">#   or when p isnt changing hardly at all</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">bisection_method</span>(func, a0, b0, accepted_error<span style="color: #666666">=</span><span style="color: #008000">None</span>):
+    <span style="color: #008000; font-weight: bold">if</span> accepted_error <span style="color: #666666">==</span> <span style="color: #008000">None</span>:
+        accepted_error <span style="color: #666666">=</span> ACCEPTABLE_ERROR_CONST <span style="color: #408080; font-style: italic"># 1E-14</span>
+    a <span style="color: #666666">=</span> a0
+    b <span style="color: #666666">=</span> b0
+    p <span style="color: #666666">=</span> (a0<span style="color: #666666">+</span>b0)<span style="color: #666666">/2</span>
+    f_p <span style="color: #666666">=</span> func(p)<span style="color: #666666">.</span>n()
+
+    i <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+    <span style="color: #408080; font-style: italic">#while abs(f_p) &gt; accepted_error:</span>
+    start <span style="color: #666666">=</span> time<span style="color: #666666">.</span>time()
+    <span style="color: #008000; font-weight: bold">while</span> <span style="color: #008000">abs</span>(f_p) <span style="color: #666666">&gt;</span> accepted_error:
+        <span style="color: #008000; font-weight: bold">if</span> f_p <span style="color: #666666">==</span> <span style="color: #666666">0</span>: <span style="color: #408080; font-style: italic"># or abs(f_p) &lt;= accepted_error:</span>
+            <span style="color: #008000; font-weight: bold">break</span>
+        comparison <span style="color: #666666">=</span> func(a)<span style="color: #666666">.</span>n()<span style="color: #666666">*</span>f_p
+        <span style="color: #008000; font-weight: bold">if</span> comparison <span style="color: #666666">&lt;</span> <span style="color: #666666">0</span>:
+            a <span style="color: #666666">=</span> a
+            b <span style="color: #666666">=</span> p
+        <span style="color: #008000; font-weight: bold">else</span>:
+            a <span style="color: #666666">=</span> p
+            b <span style="color: #666666">=</span> b
+        p <span style="color: #666666">=</span> (a <span style="color: #666666">+</span> b) <span style="color: #666666">/</span> <span style="color: #666666">2</span>
+        f_p <span style="color: #666666">=</span> func(p)<span style="color: #666666">.</span>n()
+        i <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+        <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Iteration: &quot;</span>, i, <span style="color: #BA2121">&quot; p = &quot;</span>, p<span style="color: #666666">.</span>n(), <span style="color: #BA2121">&quot; f(p) = &quot;</span>, f_p
+    end <span style="color: #666666">=</span> time<span style="color: #666666">.</span>time()
+
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Total Iterations: &quot;</span>, i, <span style="color: #BA2121">&quot;. Final p = &quot;</span>, p<span style="color: #666666">.</span>n()
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Time: &quot;</span>, end <span style="color: #666666">-</span> start, <span style="color: #BA2121">&quot;[s]&quot;</span>
+    <span style="color: #008000; font-weight: bold">print</span>
+    <span style="color: #008000; font-weight: bold">return</span> p
+
+
+<span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#   Newtons method is a simliar idea to Bisection Method, </span>
+<span style="color: #408080; font-style: italic">#   and uses similar halting methods. However, newtons</span>
+<span style="color: #408080; font-style: italic">#   method examines the rate of change of the function,</span>
+<span style="color: #408080; font-style: italic">#   which requires the derivative is known of some function</span>
+<span style="color: #408080; font-style: italic">#   </span>
+<span style="color: #408080; font-style: italic">#   If the function is unknown, then the data points could</span>
+<span style="color: #408080; font-style: italic">#   be approximated by a curve fit or a best fit polynomial..</span>
+<span style="color: #408080; font-style: italic">#   which could then have it&#39;s derivative taken...</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">newtons_method</span>(func, a, b, accepted_error<span style="color: #666666">=</span><span style="color: #008000">None</span>):
+    <span style="color: #008000; font-weight: bold">if</span> accepted_error <span style="color: #666666">==</span> <span style="color: #008000">None</span>:
+        accepted_error <span style="color: #666666">=</span> ACCEPTABLE_ERROR_CONST <span style="color: #408080; font-style: italic"># 1E-14</span>
+
+    deriv_func <span style="color: #666666">=</span> derivative(func, x)
+    
+    <span style="color: #408080; font-style: italic"># LIMIT THE NUMBER OF ITERATIONS</span>
+    <span style="color: #408080; font-style: italic"># TO REASONABLE NUMBER</span>
+    MAX_ITERATIONS <span style="color: #666666">=</span> <span style="color: #666666">100</span>
+
+    <span style="color: #408080; font-style: italic"># select arbitary starting point</span>
+    cur_p   <span style="color: #666666">=</span> (a<span style="color: #666666">+</span>b)<span style="color: #666666">/2</span>
+    cur_f_p <span style="color: #666666">=</span> func(cur_p)<span style="color: #666666">.</span>n()
+
+    i <span style="color: #666666">=</span> <span style="color: #666666">0</span> <span style="color: #408080; font-style: italic"># comparing the domain to check for stopping point</span>
+    start <span style="color: #666666">=</span> time<span style="color: #666666">.</span>time()
+    <span style="color: #008000; font-weight: bold">while</span> <span style="color: #008000">abs</span>(cur_f_p) <span style="color: #666666">&gt;</span> accepted_error:
+        <span style="color: #008000; font-weight: bold">if</span> i <span style="color: #666666">&gt;</span> MAX_ITERATIONS <span style="color: #AA22FF; font-weight: bold">or</span> cur_f_p <span style="color: #666666">==</span> <span style="color: #666666">0</span>:
+            <span style="color: #008000; font-weight: bold">break</span>
+
+        <span style="color: #408080; font-style: italic"># try to detect the derivative..</span>
+        <span style="color: #008000; font-weight: bold">try</span>:
+            deriv_func_at_cur_p <span style="color: #666666">=</span> deriv_func(cur_p)<span style="color: #666666">.</span>n()
+        <span style="color: #008000; font-weight: bold">except</span> <span style="color: #D2413A; font-weight: bold">Exception</span>, e:
+            <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Divide by zero probably occured.. breaking&quot;</span>
+            <span style="color: #008000; font-weight: bold">raise</span>
+        <span style="color: #008000; font-weight: bold">else</span>:
+            <span style="color: #008000; font-weight: bold">pass</span>
+
+        <span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">abs</span>(deriv_func_at_cur_p) <span style="color: #666666">==</span> <span style="color: #666666">0</span> :
+            <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Derivative will approach 0 soon, (preventing divide by 0, exiting...)&quot;</span>
+            <span style="color: #008000; font-weight: bold">break</span>
+        <span style="color: #008000; font-weight: bold">else</span>:  
+            cur_p <span style="color: #666666">=</span> cur_p <span style="color: #666666">-</span> cur_f_p<span style="color: #666666">/</span>deriv_func_at_cur_p
+        cur_f_p <span style="color: #666666">=</span> func(cur_p)<span style="color: #666666">.</span>n()
+        i <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+        <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Iteration: &quot;</span>, i, <span style="color: #BA2121">&quot; p = &quot;</span>, cur_p<span style="color: #666666">.</span>n(), <span style="color: #BA2121">&quot; f(p) = &quot;</span>, cur_f_p
+    end <span style="color: #666666">=</span> time<span style="color: #666666">.</span>time()
+
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Total Iterations: &quot;</span>, i, <span style="color: #BA2121">&quot;. final p = &quot;</span>, cur_p<span style="color: #666666">.</span>n()
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Time: &quot;</span>, end <span style="color: #666666">-</span> start, <span style="color: #BA2121">&quot;[s]&quot;</span>
+    <span style="color: #008000; font-weight: bold">print</span>
+    <span style="color: #008000; font-weight: bold">return</span> cur_p
+
+
+<span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#   Alternative Newtons Method: tries to avoid divide by</span>
+<span style="color: #408080; font-style: italic">#   zero issues, when we take the derivative of f(x) but </span>
+<span style="color: #408080; font-style: italic">#   at p the f`(x) approaches 0.. quicker than f(x)..</span>
+<span style="color: #408080; font-style: italic">#   computers cannot divide like that.. so we let the ratio</span>
+<span style="color: #408080; font-style: italic">#   be of f(x)/f`(x) and (f(x)/f`(x))`</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic">#   (m/m`) = (f(x)/f`(x) / (f(x)/f`(x))`)</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic"># # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span>
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">alternative_newtons_method</span>(func, a, b, accepted_error<span style="color: #666666">=</span><span style="color: #008000">None</span>):
+    <span style="color: #008000; font-weight: bold">if</span> accepted_error <span style="color: #666666">==</span> <span style="color: #008000">None</span>:
+        accepted_error <span style="color: #666666">=</span> ACCEPTABLE_ERROR_CONST <span style="color: #408080; font-style: italic"># 1E-100</span>
+
+    deriv_func  <span style="color: #666666">=</span> derivative(func, x)    <span style="color: #408080; font-style: italic"># important for 0 testing</span>
+    m(x)        <span style="color: #666666">=</span> func(x)<span style="color: #666666">/</span>deriv_func     <span style="color: #408080; font-style: italic"># meu of x</span>
+    m_prime(x)  <span style="color: #666666">=</span> derivative(m, x)       <span style="color: #408080; font-style: italic"># meu prime of x</span>
+
+    <span style="color: #408080; font-style: italic"># LIMIT THE NUMBER OF ITERATIONS</span>
+    <span style="color: #408080; font-style: italic"># TO REASONABLE NUMBER</span>
+    MAX_ITERATIONS <span style="color: #666666">=</span> <span style="color: #666666">10</span>
+
+    <span style="color: #408080; font-style: italic"># select arbitary starting point</span>
+    p   <span style="color: #666666">=</span> (a<span style="color: #666666">+</span>b)<span style="color: #666666">/2</span>
+    f_p <span style="color: #666666">=</span> func(p)<span style="color: #666666">.</span>n()   <span style="color: #408080; font-style: italic"># check for f_p to be 0.. or</span>
+                        <span style="color: #408080; font-style: italic"># close to zero by R(x) (error bound)</span>
+
+    m_p       <span style="color: #666666">=</span> m(p)<span style="color: #666666">.</span>n()    <span style="color: #408080; font-style: italic"># alternate newtons method..</span>
+    m_prime_p <span style="color: #666666">=</span> m_prime(p)<span style="color: #666666">.</span>n()
+    
+    i <span style="color: #666666">=</span> <span style="color: #666666">0</span> 
+    start <span style="color: #666666">=</span> time<span style="color: #666666">.</span>time()
+    <span style="color: #008000; font-weight: bold">while</span> <span style="color: #008000">abs</span>(f_p) <span style="color: #666666">&gt;</span> accepted_error:    <span style="color: #408080; font-style: italic"># f_p close to 0</span>
+        <span style="color: #008000; font-weight: bold">if</span> i <span style="color: #666666">&gt;</span> MAX_ITERATIONS <span style="color: #AA22FF; font-weight: bold">or</span> f_p <span style="color: #666666">==</span> <span style="color: #666666">0</span>:
+            <span style="color: #008000; font-weight: bold">break</span>
+
+        <span style="color: #408080; font-style: italic"># try to detect the derivative.. to prevent divide by 0</span>
+        <span style="color: #008000; font-weight: bold">try</span>:
+            m_prime_p <span style="color: #666666">=</span> m_prime(p)<span style="color: #666666">.</span>n()
+        <span style="color: #008000; font-weight: bold">except</span> <span style="color: #D2413A; font-weight: bold">Exception</span>, e:
+            <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Divide by zero probably occured.. breaking&quot;</span>
+            <span style="color: #008000; font-weight: bold">raise</span>
+        <span style="color: #008000; font-weight: bold">else</span>:
+            <span style="color: #008000; font-weight: bold">pass</span>
+
+        <span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">abs</span>(m_prime_p) <span style="color: #666666">==</span> <span style="color: #666666">0</span> :
+            <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Derivative will approach 0 soon,</span><span style="color: #BB6622; font-weight: bold">\</span>
+<span style="color: #BA2121">                  (preventing divide by 0, exiting...)&quot;</span>
+            <span style="color: #008000; font-weight: bold">break</span>
+        p <span style="color: #666666">=</span> p <span style="color: #666666">-</span> m_p<span style="color: #666666">/</span>m_prime_p
+        m_p <span style="color: #666666">=</span> m(p)<span style="color: #666666">.</span>n()
+        m_prime_p <span style="color: #666666">=</span> m_prime(p)<span style="color: #666666">.</span>n()
+        f_p <span style="color: #666666">=</span> func(p)<span style="color: #666666">.</span>n()
+        i <span style="color: #666666">+=</span> <span style="color: #666666">1</span>
+        <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Iteration: &quot;</span>, i, <span style="color: #BA2121">&quot; p = &quot;</span>, p<span style="color: #666666">.</span>n(), <span style="color: #BA2121">&quot; f(p) = &quot;</span>, f_p
+    end <span style="color: #666666">=</span> time<span style="color: #666666">.</span>time()   
+
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Total Iterations: &quot;</span>, i, <span style="color: #BA2121">&quot;. final p = &quot;</span>, p<span style="color: #666666">.</span>n()
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Time: &quot;</span>, end <span style="color: #666666">-</span> start, <span style="color: #BA2121">&quot;[s]&quot;</span>
+    <span style="color: #008000; font-weight: bold">print</span>
+    <span style="color: #008000; font-weight: bold">return</span> p
+
+
+
+<span style="color: #408080; font-style: italic"># ENTRY POINT:</span>
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">main</span>():
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;Main:::</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&quot;</span>
+
+    <span style="color: #408080; font-style: italic"># g(x) = cos(x/3) - 2*cos(x/5) + 5*sin(x/4) + 8 </span>
+    <span style="color: #408080; font-style: italic"># p = plot(indefinite_integral(g(x),x), 100, 600)</span>
+    <span style="color: #408080; font-style: italic"># p.show()</span>
+
+    f(x) <span style="color: #666666">=</span> x<span style="color: #666666">^3</span> <span style="color: #666666">-</span> <span style="color: #666666">3*</span>x<span style="color: #666666">^2*</span>(<span style="color: #666666">2^-</span>x) <span style="color: #666666">+</span> <span style="color: #666666">3*</span>x<span style="color: #666666">*</span>(<span style="color: #666666">4^-</span>x) <span style="color: #666666">-</span> <span style="color: #666666">8^-</span>x  
+    p <span style="color: #666666">=</span> plot(f(x),x, <span style="color: #666666">0.6</span>, <span style="color: #666666">0.7</span>)
+    p<span style="color: #666666">.</span>show()
+
+    v <span style="color: #666666">=</span> [<span style="color: #666666">-10</span>,<span style="color: #666666">200</span>]
+    v <span style="color: #666666">=</span> [<span style="color: #666666">-10</span>,<span style="color: #666666">5</span>]
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;FUNCTION: f =&quot;</span>, f, <span style="color: #BA2121">&quot;</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&quot;</span>
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;ACCEPTABLE_ERROR_CONST: &quot;</span>, ACCEPTABLE_ERROR_CONST, <span style="color: #BA2121">&quot;</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&quot;</span>
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;INTERVAL: v =&quot;</span>, v, <span style="color: #BA2121">&quot;</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&quot;</span>
+    <span style="color: #408080; font-style: italic">#0.6411895751953125</span>
+
+    interval_left  <span style="color: #666666">=</span> v[<span style="color: #666666">0</span>]
+    interval_right <span style="color: #666666">=</span> v[<span style="color: #666666">1</span>]
+
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;BISECTION METHOD:&quot;</span>
+    retval <span style="color: #666666">=</span> bisection_method(f, interval_left, interval_right)
+    <span style="color: #408080; font-style: italic"># print retval.n()</span>
+
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;NEWTONS METHOD:&quot;</span>
+    retval <span style="color: #666666">=</span> newtons_method(f, interval_left, interval_right)
+    <span style="color: #408080; font-style: italic"># print retval.n()</span>
+
+    <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;ALTERNATIVE NEWTONS METHOD:&quot;</span>
+    retval <span style="color: #666666">=</span> alternative_newtons_method(f, interval_left, interval_right)
+    <span style="color: #408080; font-style: italic"># print retval.n()</span>
+
+    <span style="color: #008000; font-weight: bold">return</span> <span style="color: #666666">0</span>
+
+<span style="color: #408080; font-style: italic"># set if run as script</span>
+<span style="color: #408080; font-style: italic"># or if run as module but file is main.py</span>
+<span style="color: #008000; font-weight: bold">if</span> __name__ <span style="color: #666666">==</span> <span style="color: #BA2121">&quot;__main__&quot;</span>:
+    <span style="color: #408080; font-style: italic"># executing the main</span>
+    status <span style="color: #666666">=</span> main()
+</pre></div>
+</body>
+</html>

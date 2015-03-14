@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+function setbrightness()
+{
+    echo "Setting brightness to: "$1
+    eval "xbacklight -set "$1
+}
+
+if [ $# -ne 1 ]
+then
+    echo "Brightness percentage setting requires # in [1-100]"
+    exit 0
+else
+    if hash xbacklight 2> /dev/null;
+    then
+        setbrightness $1 
+    else
+        echo "Installing xbacklight..."
+        eval "sudo apt-get install xbacklight"
+        echo "Finished installing xbacklight"
+    fi
+fi
