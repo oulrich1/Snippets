@@ -19,7 +19,7 @@ command_state=0
 
 function show_help
 {
-echo "usage: gencpp [-o | -m] | [filename]
+echo "usage: gencpp [-o class and header | -m main file] | [filename]
 "
 }
 
