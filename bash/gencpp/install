@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+if [ -a "./gencpp" ]
+then
+    echo "Copying 'gencpp' to /usr/bin/"
+    if [ -d "/usr/bin" ]
+    then
+        sudo cp ./gencpp /usr/bin/
+        echo "Done
+        
+Run with: 'gencpp -m' to create a main file"
+    else
+        echo "Error: /usr/bin/ doesnt exist.."
+    fi
+else
+    echo "Error: cannot find the gencpp in local directory.. exiting"
+fi
+

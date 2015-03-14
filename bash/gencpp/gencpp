@@ -1,0 +1,326 @@
+#!/usr/bin/env bash
+#
+#   Creates files with boiler simple cpp code inside
+#   TODO: depending on the arguments, generate different code
+#         for example: if user expects C code. then generate C boiler code
+#
+#   For now, what it does is: 
+#       -   creates a class and header file if -o is supplied
+#       -   creates either a main if -m or no arguments
+#  
+#   Author: Oriah Ulrich
+#
+# 
+
+DEFAULT_EXT=".cpp"
+DEFAULT_EXT_HEADER=".h"
+
+command_state=0
+
+function show_help
+{
+echo "usage: gencpp [-o | -m] | [filename]
+"
+}
+
+
+function create_main_file
+{
+
+str1=$(cat <<_EOF_
+#include <iostream>
+#include <fstream>
+
+_EOF_
+)
+
+str2=$(cat <<_EOF_
+
+
+using namespace std;
+
+int main(int argc, char** argv){
+    cout << "$1" << endl;
+
+    return 0;
+}
+_EOF_
+)
+
+str=$str1$str2
+
+cat > $1$DEFAULT_EXT <<_EOF_
+$str
+_EOF_
+
+echo "Done (Created MAIN)"
+}
+
+function create_cmain_file
+{
+
+str1=$(cat <<_EOF_
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+_EOF_
+)
+
+str2=$(cat <<_EOF_
+
+
+int 
+main(int argc, char** argv){
+    int x = 1;
+    printf("$1: %d\n", x);
+
+    return 0;
+}
+_EOF_
+)
+
+str=$str1$str2
+
+cat > $1$DEFAULT_EXT <<_EOF_
+$str
+_EOF_
+
+echo "Done (Created C-MAIN)"
+}
+
+
+function create_header_file
+{
+HDR=$(echo $1 | tr 'a-z' 'A-Z')_H
+
+str1=$(cat <<_EOF_
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+
+_EOF_
+)
+
+str2=$(cat <<_EOF_
+
+#ifndef _$HDR
+#define _$HDR
+
+class $1 {
+    public:
+        $1();
+        ~$1();
+
+};
+
+#endif
+
+_EOF_
+)
+
+str=$str1$str2
+
+cat > $1$DEFAULT_EXT_HEADER <<_EOF_
+$str
+_EOF_
+
+echo "Done (Created HEADER)"
+}
+
+
+function create_cpp_file
+{
+
+str1=$(cat <<_EOF_
+#include "$1.h"
+
+_EOF_
+)
+
+str2=$(cat <<_EOF_
+
+
+$1::$1(){
+
+}
+
+$1::~$1(){
+
+}
+_EOF_
+)
+
+str=$str1$str2
+
+cat > $1$DEFAULT_EXT <<_EOF_
+$str
+_EOF_
+
+echo "Done (Created CPP)"
+}
+
+
+########################################################
+function generate_files
+{ # given the command state passedin:
+  # figure out which files to create
+    if [ $2 -eq 0 ] 
+    then
+        create_main_file $1
+    else
+        for ((b=0; b<8; b++ ))
+        do
+            local state=$(($2 & (1 << b)))
+            if [ $state -ne 0 ]
+            then
+               if [ $state -eq 8 ] 
+               then
+                    # show help
+                    show_help
+               elif [ $state -eq 1 ] 
+               then
+                    DEFAULT_EXT=".c"
+                    create_cmain_file $1
+               else
+                   if [ $state -eq 2 ] 
+                   then
+                        # create the class/header files
+                        create_cpp_file $1
+                        create_header_file $1
+                   elif [ $state -eq 4 ] 
+                   then
+                        # also create a main file
+                        create_main_file $1
+
+                        # only one main allowed
+                        eval "command_state=$(($command_state ^ 4))"
+                        eval "command_state=$(($command_state | 2))"
+
+                    fi
+                fi
+            fi
+        done
+    fi
+
+}
+
+
+# expects 2 params: $1 is command $2 is return value (command state)
+function get_command_state()
+{
+    # returns the command state that 
+    # maps from the command passed in  
+    local state=0
+    if [ $1 = "c" ] # generate c code instead
+    then
+        state=1
+    elif [ $1 = "o" ] # generate class and header file
+    then
+        state=2
+    elif [ $1 = "m" ] # generate main file
+    then
+        state=4
+    elif [ $1 = "help" ] # show help
+    then
+        state=8
+    fi
+
+    if [ -n $2 ]
+    then
+        # return value
+        eval "$2=$state"
+    fi
+    #echo "$state"
+}
+
+
+
+########################################################
+# must use command line arguments:
+# TODO: read number of arguments,
+#   parse arguments and based on the type (if it has hyphen or not)
+#   determine state of execution, (what we need to do)
+#   and determine filename and if file exsts and whatnot
+#   then generate boiler/simple cpp code files based on settings..
+if [ $# -ne 0 ]
+then 
+    iter=0
+    declare -a FILENAMES=()
+    for arg in $*
+    do
+        part=${arg:0:2}
+        if [ $part = "--" ]
+        then
+            #echo "this is a full word command"
+            command=${arg#--*}
+            new_state=0
+            get_command_state $command new_state
+            command_state=$(( $command_state | $new_state))
+        elif [ ${part:0:1} = "-" ]
+        then
+            #echo "this is a string of character commands"
+            arg=${arg#-*}
+            for (( i=0; i<${#arg}; i++ )); do
+                #echo ${arg:$i:1}
+                command=${arg:$1:1} # single character command
+                new_state=0
+                get_command_state $command new_state
+                command_state=$(( $command_state | $new_state))
+            done
+
+        elif [ -n "$arg" ] 
+        then
+            FILENAMES+=($arg)
+            # echo "$((iter+=1)): [$arg]"
+        fi
+            
+    done
+
+    ########################################################
+    # default filename just in case 
+    # if none are supplied
+    name_not_specified=0
+    if [ -z ${FILENAMES[0]} ]
+    then
+        FILENAMES[0]="main"
+        name_not_specified=1
+        echo "Warning: filename not specified, defaulting to 'main.cpp'"
+    fi
+
+
+    ########################################################
+    # now we have the filenames
+    # and we have the state of execution
+    # NOTE: STATE WILL BE APPLIED TO ALL FILES in FILENAME
+    # NOTE: FILENAME DOES NOT INCLUDE the extension..
+    for file in "${FILENAMES[@]}"
+    do
+        # given the filename and command line arguments..
+        # does the file exist already? if so primpt user.. else create them
+        FNAME=$file
+        if [ -a $FNAME ] || [ -a $FNAME$DEFAULT_EXT ]
+        then 
+            STR="Are you sure you want to overwrite ${FNAME} ? [Y/n]: "
+            read -p "Are you sure you want to overwrite \"${FNAME}\"? [Y/n]: " yn
+            if [ -z $yn ] || [ "$yn" = "Y" ] || [ "$yn" = "y" ]
+            then
+                generate_files $FNAME $command_state
+                echo "Overwrote file and recreated"
+            else
+                echo "Nothing done..."
+            fi
+        else
+            echo "Creating New File"
+            generate_files $FNAME $command_state
+        fi
+    done
+    #echo "command state: " $command_state
+else
+    show_help
+fi
+
+exit
+
+
