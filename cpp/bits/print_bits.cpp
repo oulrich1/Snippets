@@ -28,6 +28,7 @@ void print_bits (T v) {
 
 int main () {
   cout << "Ints: " << endl;
+  print_bits<int>(0);
   print_bits<int>(1);
   print_bits<int>(2);
   print_bits<int>(3);
@@ -35,6 +36,7 @@ int main () {
   print_bits<int>(5);
 
   cout << "Floats: " << endl;
+  print_bits<float>(0);
   print_bits<float>(1);
   print_bits<float>(2);
   print_bits<float>(3);
@@ -42,6 +44,7 @@ int main () {
   print_bits<float>(5);
 
   cout << "Doubles: " << endl;
+  print_bits<double>(0);
   print_bits<double>(1);
   print_bits<double>(2);
   print_bits<double>(3);
