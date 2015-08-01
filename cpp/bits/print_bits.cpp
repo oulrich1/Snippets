@@ -34,6 +34,7 @@ int main () {
   print_bits<int>(3);
   print_bits<int>(4);
   print_bits<int>(5);
+  print_bits<int>(6);
 
   cout << "Floats: " << endl;
   print_bits<float>(0);
@@ -42,6 +43,8 @@ int main () {
   print_bits<float>(3);
   print_bits<float>(4);
   print_bits<float>(5);
+  print_bits<float>(5.834);
+  print_bits<float>(6.25);
 
   cout << "Doubles: " << endl;
   print_bits<double>(0);
@@ -50,5 +53,7 @@ int main () {
   print_bits<double>(3);
   print_bits<double>(4);
   print_bits<double>(5);
+  print_bits<double>(5.834);
+  print_bits<double>(6.25);
   return 0;
 }
