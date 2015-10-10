@@ -8,7 +8,7 @@ using namespace std;
 
 #define DECL_ALIGN(x) __declspec( align( x ) )
 
-#define GetClassName( name, align, order )                                      \
+#define GetDefinedType( name, align, order )                                      \
   name##_Align_##align##_Order_##order
 
 
@@ -45,25 +45,25 @@ DEFINE( S );
 
 int main(int argc, char** argv)
 {
-  PRINT( sizeof(GetClassName(S, 1, 1)) );
-  PRINT( sizeof(GetClassName(S, 2, 1)) );
-  PRINT( sizeof(GetClassName(S, 4, 1)) );
-  PRINT( sizeof(GetClassName(S, 8, 1)) );
-  PRINT( sizeof(GetClassName(S, 16,1)) );
+  PRINT( sizeof(GetDefinedType(S, 1, 1)) );
+  PRINT( sizeof(GetDefinedType(S, 2, 1)) );
+  PRINT( sizeof(GetDefinedType(S, 4, 1)) );
+  PRINT( sizeof(GetDefinedType(S, 8, 1)) );
+  PRINT( sizeof(GetDefinedType(S, 16,1)) );
 
   PRINT("");
-  PRINT( sizeof(GetClassName(S, 1, 2)) );
-  PRINT( sizeof(GetClassName(S, 2, 2)) );
-  PRINT( sizeof(GetClassName(S, 4, 2)) );
-  PRINT( sizeof(GetClassName(S, 8, 2)) );
-  PRINT( sizeof(GetClassName(S, 16,2)) );
+  PRINT( sizeof(GetDefinedType(S, 1, 2)) );
+  PRINT( sizeof(GetDefinedType(S, 2, 2)) );
+  PRINT( sizeof(GetDefinedType(S, 4, 2)) );
+  PRINT( sizeof(GetDefinedType(S, 8, 2)) );
+  PRINT( sizeof(GetDefinedType(S, 16,2)) );
 
   PRINT("");
-  PRINT( sizeof(GetClassName(S, 1, 3)) );
-  PRINT( sizeof(GetClassName(S, 2, 3)) );
-  PRINT( sizeof(GetClassName(S, 4, 3)) );
-  PRINT( sizeof(GetClassName(S, 8, 3)) );
-  PRINT( sizeof(GetClassName(S, 16,3)) );
+  PRINT( sizeof(GetDefinedType(S, 1, 3)) );
+  PRINT( sizeof(GetDefinedType(S, 2, 3)) );
+  PRINT( sizeof(GetDefinedType(S, 4, 3)) );
+  PRINT( sizeof(GetDefinedType(S, 8, 3)) );
+  PRINT( sizeof(GetDefinedType(S, 16,3)) );
 
   return 0;
 }
